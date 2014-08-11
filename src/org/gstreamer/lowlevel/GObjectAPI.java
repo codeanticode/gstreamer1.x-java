@@ -40,7 +40,7 @@ import java.util.List;
  */
 @SuppressWarnings("serial")
 public interface GObjectAPI extends Library {
-    GObjectAPI GOBJECT_API = GNative.loadLibrary("gobject-2.0", GObjectAPI.class,
+    GObjectAPI GOBJECT_API = GNative.loadLibrary("gobject-2.0.0", GObjectAPI.class,
         new HashMap<String, Object>() {{
             put(Library.OPTION_TYPE_MAPPER, new GTypeMapper());
         }});

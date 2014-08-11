@@ -25,6 +25,7 @@ import org.gstreamer.lowlevel.GstMiniObjectAPI;
 import org.gstreamer.lowlevel.GstNative;
 import org.gstreamer.lowlevel.GstSampleAPI;
 import org.gstreamer.lowlevel.ReferenceManager;
+import org.gstreamer.lowlevel.annotations.CallerOwnsReturn;
 import org.gstreamer.lowlevel.annotations.HasSubtype;
 
 import com.sun.jna.Pointer;
@@ -75,7 +76,7 @@ public class Sample extends MiniObject {
      * 
      * @return the buffer
      */
-    public Buffer getBuffer() {
+    @CallerOwnsReturn public Buffer getBuffer() {
          Pointer ptr = gst.gst_sample_get_buffer(this);
          
          // Buffer is owned alongside sample - freeing sample

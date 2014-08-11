@@ -27,6 +27,7 @@ import org.gstreamer.Element;
 import org.gstreamer.FlowReturn;
 import org.gstreamer.MiniObject;
 import org.gstreamer.Pad;
+import org.gstreamer.Sample;
 import org.gstreamer.lowlevel.BaseSinkAPI;
 import org.gstreamer.lowlevel.GstAPI;
 
@@ -77,15 +78,23 @@ public class BaseSink extends Element {
     public long getTsOffset() {
     	return gst().gst_base_sink_get_ts_offset(this);
     }
-    public Buffer getLastBuffer() {
-    	return gst().gst_base_sink_get_last_buffer(this);
+    public Buffer getLastBuffer() {      
+      Sample sample = gst().gst_base_sink_get_last_sample(this);
+      if (sample == null) return null;
+      return sample.getBuffer();
+//      
+//     buffer = gst_sample_get_buffer(sample);
+//      
+//      
+//    	return gst().gst_base_sink_get_last_buffer(this);
     }
-    public void enableLastBuffer(boolean enable) {
-    	gst().gst_base_sink_set_last_buffer_enabled(this, enable);
-    }
-    public boolean isLastBufferEnabled() {
-    	return gst().gst_base_sink_is_last_buffer_enabled(this);
-    }
+//    public void enableLastBuffer(boolean enable) {
+//    	gst().gst_base_sink_set_last_buffer_enabled(this, enable);
+//    }
+//    public boolean isLastBufferEnabled() {
+ //   	return gst().gst_base_sink_is_last_buffer_enabled(this);
+//    }
+    
     public boolean queryLatency(boolean live, boolean upstream_live, ClockTime min_latency, ClockTime max_latency) {
     	return gst().gst_base_sink_query_latency(this, live, upstream_live, min_latency, max_latency);
     }

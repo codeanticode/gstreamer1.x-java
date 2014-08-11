@@ -30,7 +30,7 @@ import com.sun.jna.Library;
 @SuppressWarnings("serial")
 public final class GstNative {
     // gstreamer library names the files one of libfoo-0.10 and libfoo-1.0
-    private static String[] nameFormats = { /*"%s-0.10",*/ "%s-1.0" };
+    private static String[] nameFormats = { /*"%s-0.10",*/ "%s-1.0.0" };
 
     private GstNative() {}
     

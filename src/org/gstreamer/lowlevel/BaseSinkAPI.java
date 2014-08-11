@@ -28,6 +28,7 @@ import org.gstreamer.Event;
 import org.gstreamer.FlowReturn;
 import org.gstreamer.MiniObject;
 import org.gstreamer.Pad;
+import org.gstreamer.Sample;
 import org.gstreamer.StateChangeReturn;
 import org.gstreamer.elements.BaseSink;
 import org.gstreamer.lowlevel.GlibAPI.GList;
@@ -40,6 +41,7 @@ import com.sun.jna.Callback;
 import com.sun.jna.Library;
 import com.sun.jna.Pointer;
 import com.sun.jna.Union;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -259,10 +261,14 @@ public interface BaseSinkAPI extends Library {
     long gst_base_sink_get_ts_offset(BaseSink sink);
 
     /* last buffer */
-    @CallerOwnsReturn Buffer gst_base_sink_get_last_buffer(BaseSink sink);
-    void gst_base_sink_set_last_buffer_enabled(BaseSink sink, boolean enable);
-    boolean gst_base_sink_is_last_buffer_enabled(BaseSink sink);
+    // Gone from GStreamer 1.x
+//    @CallerOwnsReturn Buffer gst_base_sink_get_last_buffer(BaseSink sink);    
+//    void gst_base_sink_set_last_buffer_enabled(BaseSink sink, boolean enable);
+//    boolean gst_base_sink_is_last_buffer_enabled(BaseSink sink);
 
+    /* Last sample */
+    Sample gst_base_sink_get_last_sample(BaseSink sink);
+    
     /* latency */
     boolean gst_base_sink_query_latency(BaseSink sink, boolean live, boolean upstream_live, ClockTime min_latency, ClockTime max_latency);
     ClockTime gst_base_sink_get_latency(BaseSink sink);

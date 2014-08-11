@@ -1,0 +1,72 @@
+<!-- Ant build file that compiles a clean and nice gstreamer-java jar to use in Processing, and puts it 
+     along with the correct jna.jar pulled from the maven repository. -->
+<project name="gstreamer-java for Processing" default="build" basedir="../">
+	<description>
+        GStreamer-java. ant build file.
+	</description>
+	
+	<property name="libraryClasspath"  location="lib/"/>	
+	<path id="library-classpath">
+		<fileset dir="${libraryClasspath}" >		
+			<include name="junit-4.8.1.jar"/>
+			<include name="jna-3.5.1.jar"/>
+			<include name="platform-3.5.1.jar"/>
+			<include name="AppleJavaExtensions-1.4.jar"/>
+			<include name="macosx-3.3.0-v3346.jar"/>
+		</fileset>
+	</path>		
+	
+	<property name="javaVersion" value="1.7"/>
+	
+	<property name="libraryName"  value="gstreamer1.x-java"/>
+	
+	<property name="versionNumber"  value="1.0"/>	
+	
+	
+	<property name="jarFile" value="${libraryName}.jar"/>
+	<property name="src" location="src"/>
+	<property name="bin" location="bin"/>
+	<property name="dist" location="processing/jar"/>	
+	
+	<target name="init">
+	<echo>Properties initialized.
+	src path		${src}
+	bin path 		${bin}
+	libraryClasspath	${libraryClasspath}
+	java version		${javaVersion}
+	</echo>
+		<echo>building library ...</echo>
+		
+		<!-- Create the time stamp -->
+		<tstamp> 
+			<format property="date" pattern="MM/dd/yyyy" offset="0" unit="hour"/>
+		</tstamp>
+		<mkdir dir="${dist}"/>
+	</target>
+  
+	<!-- compile the library -->
+	<target name="compile" depends="init" description="compile the source" >  	
+	    <!-- delete the previous content of the ${bin} folder -->
+	    <delete dir="${bin}" />
+		<mkdir dir="${bin}" />
+		<javac srcdir="${src}" destdir="${bin}" source="${javaVersion}">
+			<exclude name="org/gstreamer/swt/overlay/**"/>
+			<classpath>
+				<path refid="library-classpath"/>
+			</classpath>
+		</javac>
+	</target>
+
+	<!-- build the distribution of the library -->
+	<target name="build" depends="compile" description="generate the distribution" >
+  		<!-- delete the previous content of the ${dist} folder -->
+		<delete dir="${dist}" />
+  	
+		<!-- build the structure for ${dist} -->
+		<mkdir dir="${dist}" />
+		<jar jarfile="${dist}/${jarFile}" basedir="${bin}"/>
+		<copy file="${libraryClasspath}/jna-3.5.1.jar" tofile="${dist}/jna.jar" />
+		<!-- done, finished. -->
+		<echo>done, finished.</echo>
+	 </target>
+</project>

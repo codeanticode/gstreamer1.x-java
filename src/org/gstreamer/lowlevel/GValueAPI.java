@@ -46,10 +46,10 @@ public interface GValueAPI extends Library {
         Pointer g_value_dup_object(GValue value);
     }
 
-    NoMapperAPI GVALUE_NOMAPPER_API = GNative.loadLibrary("gobject-2.0", NoMapperAPI.class,
+    NoMapperAPI GVALUE_NOMAPPER_API = GNative.loadLibrary("gobject-2.0.0", NoMapperAPI.class,
                     new HashMap<String, Object>() {});
 
-    GValueAPI GVALUE_API = GNative.loadLibrary("gobject-2.0", GValueAPI.class,
+    GValueAPI GVALUE_API = GNative.loadLibrary("gobject-2.0.0", GValueAPI.class,
     		new HashMap<String, Object>() {{
     			put(Library.OPTION_TYPE_MAPPER, new GTypeMapper());
     		}});
